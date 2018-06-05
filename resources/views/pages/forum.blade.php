@@ -14,38 +14,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
-                        <div class="widget nopadding clearfix">
-                            <div class="panel panel-primary nopadding">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Search For Popular Help Topics</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <form class="site-search">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label" for="focusedInput2">How may I help you today?</label>
-                                            <input class="form-control" id="focusedInput2" type="text">
-                                        </div>
-                                        <div class="form-group clearfix"> <!-- inline style is just to demo custom css to put checkbox below input above -->
-                                            <div class="checkbox pull-left">
-                                                <label>
-                                                    <input type="checkbox"> &nbsp;Topics
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox"> &nbsp;Forums
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox"> &nbsp;Knowledge Base
-                                                </label>
-                                            </div>
-                                            <div class="submit-button pull-right">
-                                                <a class="btn btn-raised btn-info gr" href="#"><i class="material-icons">search</i> Search</a>
-                                            </div>
-                                        </div>
-                                    </form><!-- end well -->
-                                </div>
-                            </div>
-                        </div><!-- end widget -->
-
+                        @include('components.search')
 
                         <div class="home-tab clearfix">
                             <ul class="nav nav-tabs">
@@ -79,25 +48,7 @@
                                                     
                                                     <div id="collapse{{$topic->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                                         <div class="panel-body">
-                                                            <div class="topic-meta clearfix">
-                                                                <div class="pull-left">
-                                                                    <a class="btn btn-default btn-fab btn-fab-mini" href="#" data-toggle="tooltip" data-placement="bottom" title="Like">
-                                                                        <i class="material-icons">thumb_up</i>
-                                                                    </a>
-                                                                    <a class="btn btn-default btn-fab btn-fab-mini" href="#" data-toggle="tooltip" data-placement="bottom" title="Un Like">
-                                                                        <i class="material-icons">thumb_down</i>
-                                                                    </a>
-                                                                </div><!-- end left -->
-
-                                                                <div class="pull-right">
-                                                                    <a class="btn btn-default btn-fab btn-fab-mini" href="#" data-toggle="tooltip" data-placement="bottom" title="12 comments">
-                                                                        <i class="material-icons">comment</i>
-                                                                    </a>
-                                                                    <a class="btn btn-default btn-fab btn-fab-mini" href="#" data-toggle="tooltip" data-placement="bottom" title="Bookmark">
-                                                                        <i class="material-icons">bookmark_border</i>
-                                                                    </a>
-                                                                </div><!-- end right -->
-                                                            </div><!-- end topic-meta -->
+                                                           @include('components.likes_dislikes')
 
                                                             <div class="topic-desc row-fluid clearfix">
                                                                 <div class="col-sm-2">
@@ -106,19 +57,13 @@
                                                                 <div class="col-sm-10">
                                                                     <h4>{{$topic->name}}</h4>
                                                                     
-                                                                    <p> <strong>{{$topic->desc}}</strong></p>
+                                                                    <p> <strong>{{str_limit($topic->desc, 3)}}</strong></p>
                                                                     <a href="{{url('topic')}}/{{$topic->name}}/{{$topic->id}}" class="readmore" title="">Continue reading →</a>
                                                                 </div>
                                                             </div><!-- end tpic-desc -->
 
                                                             <footer class="topic-footer clearfix">
-                                                                <!-- <div class="pull-left">
-                                                                    <ul class="list-inline tags">
-                                                                        <li><a href="#">Bootstrap</a></li>
-                                                                        <li><a href="#">Web Design</a></li>
-                                                                        <li><a href="#">Framework</a></li>
-                                                                    </ul>
-                                                                </div> -->
+                                                                
 
                                                                 <div class="pull-right">
                                                                     <div class="customshare">

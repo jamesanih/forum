@@ -53,30 +53,9 @@
                         <aside class="topic-page topic-list blog-list forum-list single-forum">
                             <article class="well btn-group-sm clearfix">
                                 <div class="topic-meta clearfix">
-                                    <div class="pull-left">
-                                        <a class="btn btn-default btn-fab btn-fab-mini" href="#" data-toggle="tooltip" data-placement="bottom" title="Like">
-                                            <i class="material-icons">thumb_up</i>
-                                        </a>
-                                        <a class="btn btn-default btn-fab btn-fab-mini" href="#" data-toggle="tooltip" data-placement="bottom" title="Un Like">
-                                            <i class="material-icons">thumb_down</i>
-                                        </a>
-                                        
-                                    </div>
-                                    <!-- end left -->
+                                    @include('components.likes_dislikes')
 
-                                    <div class="pull-right">
-                                        <div class="customshare">
-                                            <div class="list">
-                                                <div class="btn btn-default btn-fab btn-fab-mini"><i class="material-icons">share</i>
-                                                    <ul class="list-inline">
-                                                        <li><a href="#" class="tw"><i class="fa fa-twitter"></i></a></li>
-                                                        <li><a href="#" class="fb"><i class="fa fa-facebook"></i></a></li>
-                                                        <li><a href="#" class="gp"><i class="fa fa-google-plus"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   @include('components.fa-fa-footers')
                                     <!-- end right -->
                                 </div>
                                 <!-- end topic-meta -->
@@ -116,10 +95,13 @@
 
 
                                 @foreach($comments as $comment)
+                                
                                 <div class="topic-desc row-fluid clearfix">
+                                        @include('components.edit')
                                     <div class="col-sm-2 text-center publisher-wrap">
                                         <img src="{{url('assets/images/uploads/team_03.jpg')}}" alt="" class="avatar img-circle img-responsive">
-                                        <h5>{{$comment->who_made_comment}}</h5>
+                                        
+                                            <h5>{{$comment->who_made_comment}}</h5>
                                         
                                     </div>
                                     <div class="col-sm-10">
@@ -135,7 +117,7 @@
 
                                         <p><strong>{{$comment->comment}}</strong></p>
                                        
-                                            <img src="{{url('public/uploadedImage')}}/{{$comment->image}}" width="100%">
+                                            <img src="{{url('/private/uploadedImage')}}/{{$comment->image}}" width="100%">
                                        
                                        
                                         
@@ -143,6 +125,7 @@
                                 </div><!-- end tpic-desc -->
 
                                 @endforeach
+                                {{$comments->links()}}
 
                                 
 
@@ -150,9 +133,9 @@
                                     <div class="row">
                                         <div class="col-sm-2 text-center publisher-wrap">
                                         	 @if(Auth::user())
-                                            <img src="{{url('assets/images/uploads/team_02.jpg')}}" alt="" class="avatar img-circle img-responsive">
+                                            
                                            
-                                            <h5>{{Auth::user()->name}}</h5>
+                                            <h5>{{Auth::user()->username}}</h5>
                                             <small class="online">Online</small>
                                             
 
@@ -163,29 +146,29 @@
                                         </div>
 
                                         <div class="col-md-10">
-                                        	<form action="{{route('comment')}}" method="post">
+                                        	<form action="{{route('comment')}}" method="post" enctype="multipart/form-data">
                                             <div class="form-group">
                                             	
                                             	<input type="hidden" name="id" value="{{request()->route('id')}}">
                                             	<input type="hidden" name="topic_name" value="{{request()->route('topic')}}">
                                                 <label for="textArea" class="col-md-2 control-label">Reply</label>
                                                 <div class="col-md-10">
-                                                    <textarea class="form-control" rows="3" id="textArea"></textarea>
-                                                    
-                                                    @if(Auth::user())
+                                                    <textarea class="form-control" rows="3" id="textArea" name="comment"></textarea>
+                                                </div>
+                                                
+                                                
+                                                 @if(Auth::user())
                                                     <button type="submit" class="btn btn-raised btn-info gr">Reply</button>
                                                     @else
                                                     <a class="btn btn-raised btn-info gr" href="javascript:void(0)" data-toggle="modal" data-target="#LoginModal"">Reply</a>
                                                     @endif
-                                                </div>
                                             </div>
 
-                                            <div class="form-group">
-                                            	<label for="image" class="col-md-2 control-label">UploadImage</label>
-                                            	<div class="col-md-10">
-                                            		<text type="file" name="image" class="form-control" id="image"></text>
-                                            	</div>
-                                            </div>
+                                            <div class="col-md-10">
+                                                    <input type="file" name="image" id="name">
+                                                </div>
+
+                                            {{csrf_field()}}
                                             </form>
                                         </div><!-- end col -->
                                     </div><!-- end row -->

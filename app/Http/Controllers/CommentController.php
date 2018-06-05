@@ -14,8 +14,8 @@ class CommentController extends Controller
         $topic = $request->topic_name;
     	$topic_id = $request->id;
         $comment = $request->comment;
-        $path = 'public/uploadedImage';
-        $post_name = Auth::user()->name;
+        $path = 'private/uploadedImage';
+        $post_name = Auth::user()->username;
         //echo $id . " ". $comment . " ". $image;
         
     	if($request->hasFile('image')){

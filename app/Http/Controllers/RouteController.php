@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Topic;
 use App\Comment;
+use App\User;
 
 class RouteController extends Controller
 {
@@ -12,6 +13,12 @@ class RouteController extends Controller
     public function topic($topic, $id){
     	$topic = $topic;
         $id = $id;
+
+        $user = User::where('id', $id)->get();
+        foreach ($user as $users) {
+            $image = $users->image;
+            return json()->response(['image'=> $image]);
+        }
         
         $comments = Comment::where('topics_id', $id)->orderBy('id', 'desc')
                                       ->paginate(5);
@@ -28,7 +35,8 @@ class RouteController extends Controller
         return view('pages.topic', [
         	'topic'=> $topic,
         	'data'=> $data,
-        	'comments'=>$comments
+        	'comments'=>$comments,
+            
         ]);
     }
 
@@ -36,7 +44,7 @@ class RouteController extends Controller
     public function getTopic(){
 
     	$topics = Topic::orderBy('id', 'desc')
-                        ->paginate(3);
+                        ->paginate(5);
         return view('index', [
             'topics'=>$topics
         ]);
